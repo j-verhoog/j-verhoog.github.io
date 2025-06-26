@@ -1,30 +1,30 @@
 // Decision tree data structure
 const tree = {
-  question: "Start: Do you like mysteries?",
+  question: "Start: Wil je iets bewaren?",
   yes: {
-    question: "Can you handle spooky stories?",
+    question: "Is het open geweest?",
     yes: {
-      question: "Then visit the haunted house!",
-      yes: { question: "🎃 You survived! The end." },
-      no:  { question: "👻 You chickened out. The end." }
+      question: "Eet je het op binnen een week?",
+      yes: { question: "Op je eigen plankje is prima." },
+      no:  { question: "In de harde plastic bakken of in een glazen pot hoort dit thuis" }
     },
     no: {
-      question: "Prefer light puzzles?",
-      yes: { question: "🧩 Try a mystery jigsaw!" },
-      no:  { question: "📚 Read a detective novel!" }
+      question: "Kan een mot of larve er in komen?",
+      yes: { question: "In de harde plastic bakken of in een glazen pot hoort dit thuis." },
+      no:  { question: "Op je eigen plankje is prima" }
     }
   },
   no: {
-    question: "Prefer action over mystery?",
+    question: "Doe je dit dan voor de lol?",
     yes: {
-      question: "Video games or sports?",
-      yes: { question: "🎮 Play a shooter game!" },
-      no:  { question: "⚽️ Go outside and play!" }
+      question: "Quizvraag: Ligt New York zuidelijker dan Rome?",
+      yes: { question: "Heel goed! 100 punten" },
+      no:  { question: "Haha sukkel, echt wel." }
     },
     no: {
-      question: "Just chilling?",
-      yes: { question: "😴 Take a nap. The end." },
-      no:  { question: "📺 Watch a comedy show. The end." }
+      question: "Gek dat je dit niet voor de lol doet. Wil je een tip?",
+      yes: { question: "MURDER ALLE MOTTEN DIE JE ZIET, BEWAAR AL JE SPULLEN LUCHT DICHT EN VER WEG!!!!" },
+      no:  { question: "Nou dan niet, doei he!" }
     }
   }
 };
