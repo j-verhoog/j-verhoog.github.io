@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <!-- ctrl shift v to preview -->
+    <header>
+        <div class="social-links">
+            <a href="https://github.com/CrackinBee" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+            <!-- <a href="mailto:jverhoog@yahoo.com">Email</a> -->
+        </div>
+        
+    </header>
+
+    <!-- Main Content -->
+    <main>
+                <!-- Profile Section -->
+        <section class="profile">
+            <img src="images/profile_pic.jpg" alt="Your Photo" class="profile-photo">
+            <div class="profile-description">
+                <h1>Jolle Verhoog</h1>
+                <p>
+                    Hi, I am Jolle Verhoog and welcome to my portfolio! 
+                    I am a Robotics Engineer with a deep interest in automation, intelligent systems and computer vision.
+                    This portfolio highlights my journey through innovative projects, demonstrating how I apply cutting-edge technologies to solve real-world challenges. 
+                    Feel free to explore and to reach out!
+                    
+                </p>
+            </div>
+        </section>
+
+        <section class="projects">
+            <!-- <h1>My Projects</h1> -->
+
+            <!-- Bachelor Thesis -->
+            <div class="project">
+                <h2>Skeleton Annotation</h2>
+                <div class="project-media">
+                    <img src="images/2d_rect_cam0_0_2773.jpg" alt="Image mmdet">
+                    <img src="images/2d_rect_cam0_0_2773_0.jpg" alt="Image cut out">
+                    <img src="images/2d_rect_cam0_0_2773_0mmpose.jpg" alt="Image mmpose">
+                    <img src="images/2d_rect_cam0_0_2773_0black.jpg" alt="Image blackened">
+                </div>
+                <p>
+                    My bachelor thesis was centered around creating a customizable pipeline for annotating human skeletons in image datasets. 
+                    This tool is created for researchers and developers working in computer vision, particularly in pose estimation and person/object detection. 
+                    The estimation of keypoints on images could for instance be used to predict the direction and speed of walking or to predict if a person has seen the vehicle. 
+                    Futhermore it could be used to create 3D meshes of the skeleton models for augmented and virtual reality.
+                    It integrates seamlessly with MMDetection, MMPose and LabelMe.
+                    The final pipeline includes the automated and adjustable process, anonimyzing people in the dataset and different export options, also for manual adjustments.
+                </p>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project">
+                <h2>Mobile Robot Control</h2>
+                <div class="project-media">
+                    <video controls>
+                        <source src="videos/output.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <img src="images/project2.jpg" alt="Project 2 Image">
+                </div>
+                <p>
+                    This project involved the creation of a person detection and robot control package within ROS2.
+                    The objective of the robot is to move through the path and come to a complete stop in front of the human.
+                    The creation of these two packages was done within Ubuntu.
+                </p>
+            </div>
+
+            <!-- Add more projects as needed -->
+
+        </section>
+    </main>
+
+    <!-- Footer Bar -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/CrackinBee" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+            <!-- <a href="mailto:youremail@example.com">Email</a> -->
+        </div>
+    </footer>
+
+</body>
+</html>
