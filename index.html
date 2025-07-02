@@ -1,17 +1,142 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MotMurderTree</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Portfolio Jolle Verhoog</title>
+    <link rel="icon" href="/images/favicon_robot.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div id="question"></div>
-  <div id="choices">
-    <button id="yes">Ja</button>
-    <button id="no">Nee</button>
-  </div>
-  <script src="script.js"></script>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="social-links">
+            <a href="https://github.com/CrackinBee" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+        </div>
+        <div class="project-dropdown">
+            <button id="menu-toggle" class="menu-btn">All Projects ▼</button>
+            <ul id="project-menu" class="dropdown-menu">
+              <li class="dropdown-header">Main Projects</li>
+              <li><a href="#skeleton-annotation">BSc Thesis</a></li>
+              <li><a href="#apple-robot">Msc Final Project</a></li>
+              <li><a href="#internship-n-sea">MSc Internship</a></li>
+              <li><a href="#master-thesis">Msc Thesis</a></li>
+
+              <!-- Divider -->
+              <li class="divider"></li>
+            
+              <!-- Extras Header -->
+              <li class="dropdown-header">Extras</li>
+              <li><a href="/projects/mot-murder-tree/">Mot Extermination Tree</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Profile Section -->
+        <section class="profile">
+            <img src="/images/profile_pic.jpg" alt="Your Photo" class="profile-photo">
+            <div class="profile-description">
+                <h1>Jolle Verhoog</h1>
+                <p>
+                    Hi, I am Jolle Verhoog and welcome to my portfolio! 
+                    I am a Robotics Engineer with a deep interest in automation, intelligent systems and computer vision.
+                    This portfolio highlights my journey through innovative projects, demonstrating how I apply cutting-edge technologies to solve real-world challenges. 
+                    <br>
+                    Feel free to explore and to reach out!
+                </p>
+            </div>
+        </section>
+
+        <section class="projects">
+            <!-- Skeleton Annotation -->
+            <div class="project">
+                <h2>BSc Thesis - Skeleton Annotation</h2>
+                <div class="project-media">
+                    <img src="/images/2d_rect_cam0_0_2773.jpg" alt="Image mmdet">
+                    <img src="/images/2d_rect_cam0_0_2773_0.jpg" alt="Image cut out">
+                    <img src="/images/2d_rect_cam0_0_2773_0mmpose.jpg" alt="Image mmpose">
+                    <img src="/images/2d_rect_cam0_0_2773_0black.jpg" alt="Image blackened">
+                </div>
+                <p>
+                    My bachelor thesis was centered around creating a customizable pipeline for annotating human skeletons in image datasets. 
+                    This tool is created for researchers and developers working in computer vision, particularly in pose estimation and person/object detection. 
+                    The estimation of keypoints on images could for instance be used to predict the direction and speed of walking or to predict if a person has seen the vehicle. 
+                    Futhermore it could be used to create 3D meshes of the skeleton models for augmented and virtual reality.
+                    It integrates seamlessly with MMDetection, MMPose and LabelMe.
+                    The final pipeline includes the automated and adjustable process, anonymizing people in the dataset and different export options, also for manual adjustments.
+                </p>
+            </div>
+
+            <!-- Internship at N-Sea -->
+            <div id="internship-n-sea" class="project">
+                <h2>MSc Internship – N-Sea</h2>
+                <div class="project-media">
+                    <video controls>
+                        <source src="/videos/NSeaDemo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p>
+                    During my internship at N-Sea, I built a Python pipeline to extract event-aligned stills/clips from ROV footage, integrated OCR for kilometer-point metadata,
+                    and applied DINO-based weak supervision for automated feature localization. I trained per-camera object detectors with tracking and implemented active-learning loops,
+                    achieving a more consistent damage detection over 40 km of validation footage. To simplify the integration into N-Sea workflows, I designed a dokcerized GUI for seamless review/export. For more information,
+                    you can read the executive summary of my internship report, or the three page summary of the report.
+                    <a href="docs/Executive_summary.pdf" target="_blank">Read the Executive Summary</a>.
+                </p>
+            </div>
+
+            <!-- Autonomous Apple Picking Robot -->
+            <div id="apple-robot" class="project">
+                <h2>MSc Final Project - Autonomous Apple Picking Robot</h2>
+                <div class="project-media">
+                    <img src="/images/JTW07211.JPG" alt="Apple Picking Robot View 1">
+                    <img src="/images/PhysicalTestArena.png" alt="Apple Picking Robot View 2">
+                    <img src="/images/apple-detect-base.jpg" alt="Apple Picking Robot View 3">
+                    <img src="/images/arm-drop-basket.jpg" alt="Apple Picking Robot View 4">
+                </div>
+                <p>
+                    Developed as part of a multidisciplinary project, the system is designed to tackle labor shortages in orchards by automating apple harvests.
+                    Built on the Mirte Master platform with a ROS 2 modular stack, it integrates visual perception, localization, path planning, and manipulation.
+                    Of the twelve real-world validation tests, ten passed. These demonstrated reliable apple detection, navigation, gripper control, and farmer communication.
+                </p>
+            </div>
+
+
+            <!-- Master Thesis -->
+            <div id="master-thesis" class="project">
+                <h2>MSc Thesis – Federated Learning for Perception in Autonomous Driving</h2>
+                <p>
+                    More details coming soon...
+                    <!-- details coming soon -->
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Bar -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/CrackinBee" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+      // Toggle dropdown
+      const btn = document.getElementById('menu-toggle');
+      const menu = document.getElementById('project-menu');
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        menu.classList.toggle('show');
+      });
+      // Close when clicking outside
+      document.addEventListener('click', () => {
+        menu.classList.remove('show');
+      });
+    </script>
 </body>
 </html>

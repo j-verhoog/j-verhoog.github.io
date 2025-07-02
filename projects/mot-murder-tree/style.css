@@ -1,0 +1,41 @@
+/* Full‑page split: top half question, bottom half buttons */
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+#question {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+#choices {
+  height: 50%;
+  display: flex;
+}
+
+#yes, #no {
+  flex: 1;
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#yes {
+  background-color: #28a745; /* green */
+}
+
+#no {
+  background-color: #dc3545; /* red */
+}
+
+#yes:active, #no:active {
+  opacity: 0.8;
+}

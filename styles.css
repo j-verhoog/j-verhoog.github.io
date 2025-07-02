@@ -1,0 +1,192 @@
+/* styles.css */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header and Footer */
+header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+.projects {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.project {
+    margin-bottom: 50px;
+}
+
+.project h1 {
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.project h2 {
+    margin-bottom: 15px;
+}
+
+.project-media {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+}
+
+.project-media img {
+    height: 200px;
+    object-fit: contain;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.project-media video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-photo {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-description h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #333;
+    text-align: center;
+}
+
+.profile-description p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Header as flex container, centering its only regular child (.social-links) */
+header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.project-dropdown {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu li + li {
+    border-top: 1px solid #eee;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+}
+/* Non-clickable section headers */
+.dropdown-menu .dropdown-header {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  cursor: default;
+}
+
+/* Thin divider line */
+.dropdown-menu .divider {
+  height: 1px;
+  background: #eee;
+  margin: 4px 0;
+  list-style: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+.menu-btn:hover,
+.menu-btn:focus {
+    text-decoration: underline;
+}
