@@ -1,0 +1,139 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Game</title>
+  <link rel="icon" href="/images/snake_favicon.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      height: 100vh;
+      color: white;
+      font-family: sans-serif;
+      padding-top: 20px;
+    }
+    #menu {
+      margin-bottom: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    #menu button, #menu select, #menu label {
+      padding: 6px 10px;
+      font-size: 14px;
+      background: #222;
+      border: 1px solid #555;
+      color: white;
+      cursor: pointer;
+    }
+    #menu button:active, #menu label:active {
+      background: #333;
+    }
+    #game-container {
+      position: relative;
+    }
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 600px;
+      height: 600px;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    #overlay button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #222;
+      border: 1px solid #555;
+      color: white;
+      cursor: pointer;
+    }
+    canvas {
+      background: #000;
+      border: 2px solid #555;
+    }
+    #leaderboard {
+      margin-top: 20px;
+      width: 600px;
+      text-align: left;
+    }
+    #leaderboard table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    #leaderboard th, #leaderboard td {
+      border: 1px solid #555;
+      padding: 6px;
+    }
+    #leaderboard th {
+      background: #222;
+    }
+    #leaderboard-form input, #leaderboard-form button {
+      padding: 6px;
+      font-size: 14px;
+      margin-right: 6px;
+    }
+    #leaderboard-form button {
+      cursor: pointer;
+      background: #222;
+      border: 1px solid #555;
+      color: white;
+    }
+    #leaderboard-form button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <button id="up">↑</button>
+    <button id="left">←</button>
+    <button id="down">↓</button>
+    <button id="right">→</button>
+    <select id="speed">
+      <option value="8">Slow</option>
+      <option value="4" selected>Normal</option>
+      <option value="2">Fast</option>
+      <option value="1">Superfast</option>
+    </select>
+    <label><input type="checkbox" id="walls"> Walls</label>
+  </div>
+
+  <div id="game-container">
+    <div id="overlay"><button id="start">Start</button></div>
+    <canvas id="game" width="600" height="600"></canvas>
+  </div>
+
+  <div id="leaderboard">
+    <h2>Leaderboard</h2>
+    <form id="leaderboard-form">
+      <input type="text" id="player-name" placeholder="Your Name" required>
+      <input type="hidden" id="entry-score">
+      <input type="hidden" id="entry-speed">
+      <input type="hidden" id="entry-walls">
+      <button type="submit" id="submit-score" disabled>Submit Score</button>
+    </form>
+    <table id="leaderboard-table">
+      <thead>
+        <tr><th>Name</th><th>Score</th><th>Speed</th><th>Walls</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
