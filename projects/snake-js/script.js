@@ -1,6 +1,6 @@
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
-const grid = 20;
+const grid = 20;               // half-size cells now 10px
 
 let count = 0;
 let speed = 4;               // default “Normal”

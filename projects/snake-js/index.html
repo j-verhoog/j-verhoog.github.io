@@ -1,11 +1,9 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snake Game</title>
-  <link rel="icon" href="/images/snake_favicon.png" type="image/png">
   <style>
     body {
       margin: 0;
@@ -14,7 +12,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: start;
-      height: 100vh;
+      min-height: 100vh;
       color: white;
       font-family: sans-serif;
       padding-top: 20px;
@@ -43,8 +41,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 600px;
-      height: 600px;
+      width: 300px;
+      height: 300px;
       background: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
@@ -65,7 +63,7 @@
     }
     #leaderboard {
       margin-top: 20px;
-      width: 600px;
+      width: 300px;
       text-align: left;
     }
     #leaderboard table {
@@ -114,7 +112,7 @@
 
   <div id="game-container">
     <div id="overlay"><button id="start">Start</button></div>
-    <canvas id="game" width="600" height="600"></canvas>
+    <canvas id="game" width="300" height="300"></canvas>
   </div>
 
   <div id="leaderboard">

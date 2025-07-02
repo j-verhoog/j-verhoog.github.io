@@ -90,21 +90,46 @@
                 </p>
             </div>
 
+            <!-- Deep Learning Projects -->
+            <div id="deep-learning" class="project">
+                <h2>MSc Electives - (Computer Vision through) Deep Learning</h2>
+                <div class="project-media">
+                    <img src="/images/MFEF.png" alt="MFEF module" />
+                    <img src="/images/transformer.png" alt="Basic transformer structure" />
+                </div>
+                <p>In the first project, I reproduced and extended a multi‐view underwater image enhancement pipeline in PyTorch, implementing REM, PCAM and MFF modules with custom L1 and perceptual loss functions into a MFEF module (see left image). I experimented with preprocessing and normalization strategies to mitigate color cast and channel imbalance, and performed extensive hyperparameter tuning to optimize fusion weights; full code and report are available at <a href="https://github.com/j-verhoog/Deep_Learning/tree/main">github.com/j-verhoog/Deep_Learning</a>.</p>
+                <p>The second project benchmarks Vision Transformer (see right image) vs. ResNet-50 on a 10-class tomato leaf disease dataset. I compared pretrained and from-scratch models using cross-entropy loss, tracked training/inference speed and memory footprint, and demonstrated that ViT reached 99.83% accuracy while ResNet-50 offered faster inference; see detailed results at <a href="https://github.com/j-verhoog/Computer_Vision_by_DeepLearning">github.com/j-verhoog/Computer_Vision_by_DeepLearning</a>.</p>
+            </div>
+
+            <!-- Advanced Machine Perception -->
+            <div id="adv-machine-perception" class="project">
+                <h2>MSc Electives - Advanced Machine Perception</h2>
+                <div class="project-media">
+                    <img src="/images/pointpainting.png" alt="PointPainting Fusion Visualization">
+                    <img src="/images/resultsAMP.png" alt="3D Detection Results Visualization">
+                </div>
+                <p>For this assignment, I enhanced the CenterPoint 3D object detector by fusing semantic image features via PointPainting and implementing 
+                    PolarMix-inspired data augmentations (scene swapping, instance mixing, point filtering), alongside a lighter voxel backbone to improve 
+                    efficiency. 
+                    I redesigned the head with CBAM attention, deformable convolutions, and dropout, and tuned hyperparameters using ReduceLRonPlateau and
+                     mixed precision. On the View-of-Delft dataset, these combined improvements achieved a 10% mAP gain overall and a 13% boost in the driving
+                      corridor benchmark.</p>
+            </div>
+
+
             <!-- Autonomous Apple Picking Robot -->
             <div id="apple-robot" class="project">
                 <h2>MSc Final Project - Autonomous Apple Picking Robot</h2>
                 <div class="project-media">
-                    <img src="/images/JTW07211.JPG" alt="Apple Picking Robot View 1">
-                    <img src="/images/PhysicalTestArena.png" alt="Apple Picking Robot View 2">
-                    <img src="/images/apple-detect-base.jpg" alt="Apple Picking Robot View 3">
-                    <img src="/images/arm-drop-basket.jpg" alt="Apple Picking Robot View 4">
+                    <img src="/images/JTW07211.JPG" alt="Robot in Orchard View 1">
+                    <img src="/images/PhysicalTestArena.png" alt="Test Arena View 2">
+                    <img src="/images/apple-detect-base.jpg" alt="Base Camera Apple Detection View 3">
+                    <img src="/images/arm-drop-basket.jpg" alt="Gripper Placing Apple in Basket View 4">
                 </div>
-                <p>
-                    Developed as part of a multidisciplinary project, the system is designed to tackle labor shortages in orchards by automating apple harvests.
-                    Built on the Mirte Master platform with a ROS 2 modular stack, it integrates visual perception, localization, path planning, and manipulation.
-                    Of the twelve real-world validation tests, ten passed. These demonstrated reliable apple detection, navigation, gripper control, and farmer communication.
-                </p>
+                <p>Developed by Newton’s Pickers, this ROS 2–based system on the Mirte Master platform integrates SLAM, dynamic obstacle braking, global and local path planning, apple detection via YOLOv8 and OpenCV, gripper trajectory planning, a finite state machine for control flow, and a simple Tkinter GUI for farmer interaction. Key nodes include SLAM (map creation & localization), EmergencyBrakeCheck (sonar‐based dynamic avoidance), NavPlanner (SMAC lattice planner), AppleDetection (YOLO‐powered vision), GripperPlanner (Cartesian‐to‐joint control), FarmerInterface, and the FSM orchestrator.</p>
+                <p>Validated across twelve real‐world tests, the robot passed ten—achieving <5 cm localization error, >90% apple detection accuracy within 2 m, 85–100% success in picking/placing, reliable arm retraction, and sub‐second GUI updates—while two navigation and dynamic obstacle avoidance tests highlighted integration limits. Autonomous navigation via Nav2 could not be executed on hardware, leading to teleop fallback and the future proposed direction for a minimal Nav2 action server to fully integrate motion planning .</p>
             </div>
+
 
 
             <!-- Master Thesis -->
