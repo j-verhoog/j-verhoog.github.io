@@ -112,10 +112,9 @@ function triggerVictory() {
 async function gameLoop() {
   if (!running) return;
 
-  // detect face
   const preds = await model.estimateFaces(video, false);
 
-  // compute scale mapping from intrinsic video to canvas
+  // compute scale mapping
   const scaleX = canvas.width  / video.videoWidth;
   const scaleY = canvas.height / video.videoHeight;
 
@@ -124,17 +123,15 @@ async function gameLoop() {
   if (preds.length > 0) {
     const lm = preds[0].landmarks;
     const parts = {
-      rightEye: lm[0], 
+      rightEye: lm[0],
       leftEye:  lm[1],
       nose:     lm[2],
       rightEar: lm[4],
       leftEar:  lm[5]
     };
 
-    // draw landmarks at scaled positions
-    Object.entries(parts).forEach(([part, [ix,iy]]) => {
-      const x = ix * scaleX;
-      const y = iy * scaleY;
+    Object.entries(parts).forEach(([part, [ix, iy]]) => {
+      const x = ix * scaleX, y = iy * scaleY;
       ctx.beginPath();
       ctx.arc(x, y, FACE_RADIUS, 0, 2 * Math.PI);
       ctx.fillStyle = (part === 'nose' ? 'darkblue' : 'lightblue');
@@ -190,12 +187,23 @@ async function gameLoop() {
   if (running) requestAnimationFrame(gameLoop);
 }
 
+// ---------------- Audio unlock helpers ----------------
+function unlockAudio() {
+  [sndGood, sndBad, sndWin].forEach(snd => {
+    const wasMuted = snd.muted;
+    snd.muted = true;
+    snd.currentTime = 0;
+    snd.play()
+      .then(() => { snd.pause(); snd.muted = wasMuted; })
+      .catch(() => { snd.muted = wasMuted; });
+  });
+}
+
 // ---------------- Mobile scaling & Event wiring ----------------
 startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
   await setupCamera();
 
-  // base internal canvas size
   canvas.width  = video.videoWidth;
   canvas.height = video.videoHeight;
 
@@ -203,13 +211,10 @@ startBtn.addEventListener('click', async () => {
   if (isMobile) {
     const vw = window.innerWidth;
     const vh = vw * (video.videoHeight / video.videoWidth);
-    // set canvas internal resolution and CSS size to screen width
-    canvas.width  = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.style.width  = vw + 'px';
-    canvas.style.height = vh + 'px';
-    video.style.width   = vw + 'px';
-    video.style.height  = vh + 'px';
+    canvas.style.width       = vw + 'px';
+    canvas.style.height      = vh + 'px';
+    video.style.width        = vw + 'px';
+    video.style.height       = vh + 'px';
     document.getElementById('gameContainer').style.width  = vw + 'px';
     document.getElementById('gameContainer').style.height = vh + 'px';
     document.body.style.overflowY = 'auto';
@@ -218,16 +223,15 @@ startBtn.addEventListener('click', async () => {
   await loadModel();
   resetGame();
 
-
-  // 🗝️ Unlock audio on mobile: play & pause each clip once
-  [sndGood, sndBad, sndWin].forEach(snd => {
-    snd.currentTime = 0;
-    snd.play().catch(() => {}).then(() => snd.pause());
-  });
+  // unlock audio on both desktop & mobile
+  unlockAudio();
 
   running = true;
   gameLoop();
 });
+
+// fallback unlock on first touch (iOS)
+document.addEventListener('touchstart', unlockAudio, { once: true });
 
 resetBtn.addEventListener('click', resetGame);
 playAgainBtn.addEventListener('click', () => {
