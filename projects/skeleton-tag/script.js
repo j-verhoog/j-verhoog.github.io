@@ -1,5 +1,3 @@
-// script.js
-
 // ---------------- DOM refs ----------------
 const video         = document.getElementById('video');
 const canvas        = document.getElementById('overlay');
@@ -16,18 +14,11 @@ const victoryScreen = document.getElementById('victoryScreen');
 
 // ---------------- Speed settings ----------------
 const SPEED_MULTIPLIERS = {
-  slow:      0.6,
-  normal:    1.25,
-  fast:      2,
-  superfast: 3
+  slow:      0.5,
+  normal:    1,
+  fast:      1.5,
+  superfast: 2
 };
-
-// ---------------- Secret facts ----------------
-const SECRET_FACTS = [
-  "A day on Venus lasts longer than a year there.",
-  "The first robots were described in a 1921 play by Karel Čapek.",
-  "Your nose’s shape is unique, like a fingerprint."
-];
 
 // ---------------- Game state ----------------
 let model, running = false, score = 0;
@@ -66,7 +57,7 @@ class Tag {
 class Dot {
   constructor() {
     this.size = 12;
-    // spawn fully within bounds
+    // always spawn fully within view
     this.x = this.size + Math.random() * (canvas.width  - 2*this.size);
     this.y = this.size + Math.random() * (canvas.height - 2*this.size);
   }
@@ -110,32 +101,23 @@ function triggerVictory() {
   sndWin.play().catch(() => {});
   victoryScreen.style.display = 'flex';
   if (speedSelect.value === 'superfast') {
-    // pick 3 random facts
-    const facts = SECRET_FACTS
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-    const container = document.createElement('div');
-    container.id = 'secretMsg';
-    container.style.marginTop = '1rem';
-    container.style.color     = '#ff0';
-    container.innerHTML = `<h3>🎉 Secret Facts:</h3><ul>${facts
-      .map(f => `<li>${f}</li>`)
-      .join('')}</ul>`;
-    victoryScreen.querySelector('.victory-content')
-      .appendChild(container);
+    const p = document.createElement('p');
+    p.id = 'secretMsg';
+    p.textContent = '🎉 Secret Unlocked: Supersonic Victory Mode! 🎉';
+    p.style.fontSize = '1.2rem';
+    p.style.marginTop = '1rem';
+    victoryScreen.querySelector('.victory-content').appendChild(p);
   }
 }
 
 async function gameLoop() {
   if (!running) return;
 
-  // detect face landmarks
   const preds = await model.estimateFaces(video, false);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (preds.length > 0) {
     const lm = preds[0].landmarks;
-    // map detections
     const parts = {
       rightEye: lm[0],
       leftEye:  lm[1],
@@ -144,7 +126,6 @@ async function gameLoop() {
       leftEar:  lm[5]
     };
 
-    // draw landmarks
     Object.entries(parts).forEach(([part, [x,y]]) => {
       ctx.beginPath();
       ctx.arc(x, y, FACE_RADIUS, 0, 2 * Math.PI);
@@ -154,7 +135,7 @@ async function gameLoop() {
 
     const [nx, ny] = parts.nose;
 
-    // update & draw tags, handle nose collisions
+    // update & draw tags, nose collisions
     tags.forEach((t, i) => {
       t.update(nx, ny);
       t.draw();
@@ -167,13 +148,12 @@ async function gameLoop() {
       }
     });
 
-    // eliminate tag-tag collisions
+    // remove one of two tags when they overlap and spawn a new one
     for (let i = 0; i < tags.length; i++) {
       for (let j = i + 1; j < tags.length; j++) {
         const dx = tags[i].x - tags[j].x;
         const dy = tags[i].y - tags[j].y;
         if (Math.hypot(dx, dy) < tags[i].size + tags[j].size) {
-          // remove the j-th and spawn a replacement
           tags.splice(j, 1);
           tags.push(new Tag());
           j--;
@@ -195,18 +175,39 @@ async function gameLoop() {
     });
   }
 
-  // draw green dots
   dots.forEach(d => d.draw());
 
   if (running) requestAnimationFrame(gameLoop);
 }
 
-// ---------------- Event wiring ----------------
+// ---------------- Mobile scaling & Event wiring ----------------
 startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
   await setupCamera();
+
+  // base sizing
   canvas.width  = video.videoWidth;
   canvas.height = video.videoHeight;
+
+  // detect mobile and scale to screen width
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    const vw = window.innerWidth;
+    const ar = video.videoHeight / video.videoWidth;
+    const vh = vw * ar;
+    // resize elements
+    canvas.width  = vw;
+    canvas.height = vh;
+    video.style.width        = vw + 'px';
+    video.style.height       = vh + 'px';
+    canvas.style.width       = vw + 'px';
+    canvas.style.height      = vh + 'px';
+    document.getElementById('gameContainer').style.width  = vw + 'px';
+    document.getElementById('gameContainer').style.height = vh + 'px';
+    // ensure page scroll
+    document.body.style.overflowY = 'auto';
+  }
+
   await loadModel();
   resetGame();
   running = true;
