@@ -3,7 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio Jolle Verhoog</title>
+    <!-- ADJUSTMENT: Added viewport meta for mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ADJUSTMENT: Added description meta for SEO and quick pitch -->
+    <meta name="description" content="Jolle Verhoog – Robotics & Computer Vision Engineer. Explore projects in automation, intelligent systems, and computer vision.">
+    <title>Jolle Verhoog – Robotics & Computer Vision Engineer</title>
     <link rel="icon" href="/images/favicon_robot.png" type="image/png">
     <link rel="stylesheet" href="/styles.css">
 </head>
@@ -14,25 +18,26 @@
         <div class="social-links">
             <a href="https://github.com/j-verhoog" target="_blank">GitHub</a>
             <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+            <a href="mailto:permanent.beleefd6q@icloud.com">Contact</a>
         </div>
         <div class="project-dropdown">
-            <button id="menu-toggle" class="menu-btn">All Projects ▼</button>
-            <ul id="project-menu" class="dropdown-menu">
-              <li class="dropdown-header">Main Projects</li>
-              <li><a href="#skeleton-annotation">BSc Thesis</a></li>
-              <li><a href="#apple-robot">Msc Final Project</a></li>
-              <li><a href="#internship-n-sea">MSc Internship</a></li>
-              <li><a href="#master-thesis">Msc Thesis</a></li>
+                <!-- ADJUSTMENT: Simplified label from 'All Projects' to 'Projects' -->
+                <button id="menu-toggle" class="menu-btn">Projects ▼</button>
+                <ul id="project-menu" class="dropdown-menu">
+                  <li class="dropdown-header">Academic Projects</li>
+                  <li><a href="#master-thesis">MSc Thesis – Federated Learning</a></li>
+                  <li><a href="#apple-robot">MSc Final Project – Autonomous Apple Picking Robot</a></li>
+                  <li><a href="#internship-n-sea">MSc Internship – N-Sea</a></li>
+                  <li><a href="#adv-machine-perception">Advanced Machine Perception</a></li>
+                  <li><a href="#deep-learning">Deep Learning (for Computer Vision)</a></li>
+                  <li><a href="#skeleton-annotation">BSc Thesis – Skeleton Annotation</a></li>
 
-              <!-- Divider -->
-              <li class="divider"></li>
-            
-              <!-- Extras Header -->
-              <li class="dropdown-header">Extras</li>
-              <li><a href="/projects/mot-murder-tree/">Mot Extermination Tree</a></li>
-              <li><a href="/projects/snake-js/">Snake Game</a></li>
-            </ul>
-        </div>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Personal Projects</li>
+                  <li><a href="/projects/mot-murder-tree/">Mot Extermination Tree</a></li>
+                  <li><a href="/projects/snake-js/">Snake Game</a></li>
+                </ul>
+            </div>
     </header>
 
     <!-- Main Content -->
@@ -53,93 +58,138 @@
         </section>
 
         <section class="projects">
-            <!-- Skeleton Annotation -->
-            <div class="project">
-                <h2>BSc Thesis - Skeleton Annotation</h2>
-                <div class="project-media">
-                    <img src="/images/2d_rect_cam0_0_2773.jpg" alt="Image mmdet">
-                    <img src="/images/2d_rect_cam0_0_2773_0.jpg" alt="Image cut out">
-                    <img src="/images/2d_rect_cam0_0_2773_0mmpose.jpg" alt="Image mmpose">
-                    <img src="/images/2d_rect_cam0_0_2773_0black.jpg" alt="Image blackened">
-                </div>
-                <p>
-                    My bachelor thesis was centered around creating a customizable pipeline for annotating human skeletons in image datasets. 
-                    This tool is created for researchers and developers working in computer vision, particularly in pose estimation and person/object detection. 
-                    The estimation of keypoints on images could for instance be used to predict the direction and speed of walking or to predict if a person has seen the vehicle. 
-                    Futhermore it could be used to create 3D meshes of the skeleton models for augmented and virtual reality.
-                    It integrates seamlessly with MMDetection, MMPose and LabelMe.
-                    The final pipeline includes the automated and adjustable process, anonymizing people in the dataset and different export options, also for manual adjustments.
-                </p>
+
+            <!-- Master Thesis -->
+            <div id="master-thesis" class="project">
+                <h2>MSc Thesis – Federated Learning for Perception in Autonomous Driving</h2>
+                <p><em>More details coming soon...</em></p>
             </div>
 
-            <!-- Internship at N-Sea -->
-            <div id="internship-n-sea" class="project">
-                <h2>MSc Internship – N-Sea</h2>
-                <div class="project-media">
-                    <video controls>
-                        <source src="/videos/NSeaDemo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <p>
-                    During my internship at N-Sea, I built a Python pipeline to extract event-aligned stills/clips from ROV footage, integrated OCR for kilometer-point metadata,
-                    and applied DINO-based weak supervision for automated feature localization. I trained per-camera object detectors with tracking and implemented active-learning loops,
-                    achieving a more consistent damage detection over 40 km of validation footage. To simplify the integration into N-Sea workflows, I designed a dokcerized GUI for seamless review/export. For more information,
-                    you can read the executive summary of my internship report, or the three page summary of the report.
-                    <a href="docs/Executive_summary.pdf" target="_blank">Read the Executive Summary</a>.
-                </p>
-            </div>
 
-            <!-- Deep Learning Projects -->
-            <div id="deep-learning" class="project">
-                <h2>MSc Electives - (Computer Vision through) Deep Learning</h2>
-                <div class="project-media">
-                    <img src="/images/MFEF.png" alt="MFEF module" />
-                    <img src="/images/transformer.png" alt="Basic transformer structure" />
-                </div>
-                <p>In the first project, I reproduced and extended a multi‐view underwater image enhancement pipeline in PyTorch, implementing REM, PCAM and MFF modules with custom L1 and perceptual loss functions into a MFEF module (see left image). I experimented with preprocessing and normalization strategies to mitigate color cast and channel imbalance, and performed extensive hyperparameter tuning to optimize fusion weights; full code and report are available at <a href="https://github.com/j-verhoog/Deep_Learning/tree/main">github.com/j-verhoog/Deep_Learning</a>.</p>
-                <p>The second project benchmarks Vision Transformer (see right image) vs. ResNet-50 on a 10-class tomato leaf disease dataset. I compared pretrained and from-scratch models using cross-entropy loss, tracked training/inference speed and memory footprint, and demonstrated that ViT reached 99.83% accuracy while ResNet-50 offered faster inference; see detailed results at <a href="https://github.com/j-verhoog/Computer_Vision_by_DeepLearning">github.com/j-verhoog/Computer_Vision_by_DeepLearning</a>.</p>
-            </div>
-
-            <!-- Advanced Machine Perception -->
-            <div id="adv-machine-perception" class="project">
-                <h2>MSc Electives - Advanced Machine Perception</h2>
-                <div class="project-media">
-                    <img src="/images/pointpainting.png" alt="PointPainting Fusion Visualization">
-                    <img src="/images/resultsAMP.png" alt="3D Detection Results Visualization">
-                </div>
-                <p>For this assignment, I enhanced the CenterPoint 3D object detector by fusing semantic image features via PointPainting and implementing 
-                    PolarMix-inspired data augmentations (scene swapping, instance mixing, point filtering), alongside a lighter voxel backbone to improve 
-                    efficiency. 
-                    I redesigned the head with CBAM attention, deformable convolutions, and dropout, and tuned hyperparameters using ReduceLRonPlateau and
-                     mixed precision. On the View-of-Delft dataset, these combined improvements achieved a 10% mAP gain overall and a 13% boost in the driving
-                      corridor benchmark.</p>
-            </div>
 
 
             <!-- Autonomous Apple Picking Robot -->
             <div id="apple-robot" class="project">
                 <h2>MSc Final Project - Autonomous Apple Picking Robot</h2>
+                <p class="impact"><strong><em>Helping farmers pick apples 24/7 without extra manual labor.</em></strong></p>
                 <div class="project-media">
                     <img src="/images/JTW07211.JPG" alt="Robot in Orchard View 1">
                     <img src="/images/PhysicalTestArena.png" alt="Test Arena View 2">
                     <img src="/images/apple-detect-base.jpg" alt="Base Camera Apple Detection View 3">
                     <img src="/images/arm-drop-basket.jpg" alt="Gripper Placing Apple in Basket View 4">
                 </div>
-                <p>Developed by Newton’s Pickers, this ROS 2–based system on the Mirte Master platform integrates SLAM, dynamic obstacle braking, global and local path planning, apple detection via YOLOv8 and OpenCV, gripper trajectory planning, a finite state machine for control flow, and a simple Tkinter GUI for farmer interaction. Key nodes include SLAM (map creation & localization), EmergencyBrakeCheck (sonar‐based dynamic avoidance), NavPlanner (SMAC lattice planner), AppleDetection (YOLO‐powered vision), GripperPlanner (Cartesian‐to‐joint control), FarmerInterface, and the FSM orchestrator.</p>
-                <p>Validated across twelve real‐world tests, the robot passed ten—achieving <5 cm localization error, >90% apple detection accuracy within 2 m, 85–100% success in picking/placing, reliable arm retraction, and sub‐second GUI updates—while two navigation and dynamic obstacle avoidance tests highlighted integration limits. Autonomous navigation via Nav2 could not be executed on hardware, leading to teleop fallback and the future proposed direction for a minimal Nav2 action server to fully integrate motion planning .</p>
+               
+                <p>For this project, the task was to develop an autonomous robot that can navigate through an orchard,
+                    detect apples, and pick them using a robotic arm. We developed a ROS 2–based system on the Mirte Master platform,
+                    integrating self localization and mapping, dynamic obstacle avoidance, global and local path planning, apple detection (with YOLOv8 and OpenCV), 
+                    gripper trajectory planning, a finite state machine for control flow, and a simple (Tkinter) graphical user interface (GUI)
+                    for farmer interaction.
+                    The project was validated across twelve real‐world tests, the robot passed ten of these. 
+                    The passed tests highlighted <5 cm localization error, >90% apple detection 
+                    accuracy within 2 m, 85–100% success in picking/placing, reliable arm retraction, and sub‐second GUI updates.
+                    The unpassed tests regarding navigation and dynamic obstacle avoidance tests, showed integration limits. 
+                    Autonomous navigation (via Nav2) could not be executed on hardware, leading to teleop fallback and the future proposed 
+                    direction for a minimal Nav2 action server to fully integrate motion planning .</p>
             </div>
 
-
-
-            <!-- Master Thesis -->
-            <div id="master-thesis" class="project">
-                <h2>MSc Thesis – Federated Learning for Perception in Autonomous Driving</h2>
+            <!-- Internship at N-Sea -->
+            <div id="internship-n-sea" class="project">
+                <h2>MSc Internship – N-Sea</h2>
+                <p class="impact"><strong><em>Fast and autonomous damage detection on underwater pipelines with video footage.</em></strong></p>
+                <div class="project-media">
+                    <video controls>
+                        <source src="/videos/NSeaDemo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
                 <p>
-                    More details coming soon...
-                    <!-- details coming soon -->
+                    During my internship at N-Sea, I built a Python pipeline to extract event-aligned stills/clips from ROV footage, 
+                    integrated OCR for kilometer-point metadata,
+                    and applied DINO-based weak supervision for automated feature localization. I trained per-camera object detectors with tracking 
+                    and implemented active-learning loops,
+                    achieving a more consistent damage detection over 40 km of validation footage. 
+                    To simplify the integration into N-Sea workflows, I designed a dockerized GUI for seamless review/export. For more information,
+                    you can read the executive summary of my internship report.
+                    <a href="docs/Executive_summary.pdf" target="_blank">Read the Executive Summary</a>.
                 </p>
             </div>
+
+            <!-- Advanced Machine Perception -->
+            <div id="adv-machine-perception" class="project">
+                <h2>MSc Elective - Advanced Machine Perception</h2>
+                <p class="impact"><strong><em>Enhanced obstacle detection, translating to more reliable obstacle warnings for autonomous vehicles.</em></strong></p>
+                <div class="project-media">
+                    <img src="/images/pointpainting.png" alt="PointPainting Fusion Visualization">
+                    <img src="/images/resultsAMP.png" alt="3D Detection Results Visualization">
+                </div>
+                
+                <p>For this elective, I enhanced a 3D object detector (CenterPoint) by fusing camera and LiDAR features. 
+                    Such an object detector could be used in (autonomous) vehicles, such as cars, for obstacle avoidance.
+                    The fusion of camera and LiDAR was done by painting LiDAR points with colors (features) from the camera images.
+                    To enhance the performance of the 3D object detector, I implemented PolarMix-inspired data augmentations,
+                    including scene swapping, instance mixing, and point filtering. 
+                    Additionally, adjustments to the backbone, encoder, head, and hyperparameters were also introduced. 
+                    On the View-of-Delft dataset, these enhancements resulted in an overall 10% increase in mAP (mean Average Precision) 
+                    and a 13% boost for the driving corridor mAP.</p>
+            </div>
+
+            <!-- Deep Learning Projects -->
+            <div id="deep-learning" class="project">
+                <h2>MSc Electives - (Computer Vision through) Deep Learning</h2>
+                <p class="impact"><strong><em>Researched different deep networks and architectures for image underwater enhancement and tomoto leaf disease detection.</em></strong></p>
+                <div class="project-media">
+                    <img src="/images/MFEF.png" alt="MFEF module" />
+                    <img src="/images/transformer.png" alt="Basic transformer structure" />
+                </div>
+                
+                <p>In the first project, I reproduced and extended a multi‐view underwater image enhancement pipeline in PyTorch, 
+                    implementing REM, PCAM and MFF modules with custom L1 and perceptual loss functions into a MFEF module (see left image). 
+                    I experimented with preprocessing and normalization strategies to mitigate color cast and channel imbalance, 
+                    and performed extensive hyperparameter tuning to optimize fusion weights; full code and report are available at 
+                    <a href="https://github.com/j-verhoog/Deep_Learning/tree/main">github.com/j-verhoog/Deep_Learning</a>.</p>
+                <p>The second project benchmarks a Vision Transformer (see right image) vs. a convolutional network (ResNet-50) on a 10-class tomato leaf disease dataset. 
+                    I compared pretrained and from-scratch models using cross-entropy loss, tracked training/inference speed and memory footprint, 
+                    and demonstrated that ViT reached 99.83% accuracy while ResNet-50 offered faster inference; see detailed results at 
+                    <a href="https://github.com/j-verhoog/Computer_Vision_by_DeepLearning">github.com/j-verhoog/Computer_Vision_by_DeepLearning</a>.</p>
+            </div>
+
+
+            <!-- Skeleton Annotation -->
+            <div class="project">
+                <h2>BSc Thesis - Skeleton Annotation</h2>
+                <p class="impact"><strong><em>Predicting pedestrian intent, improving road safety.</em></strong></p>
+                <div class="project-media">
+                    <img src="/images/2d_rect_cam0_0_2773.jpg" alt="Image mmdet">
+                    <img src="/images/2d_rect_cam0_0_2773_0.jpg" alt="Image cut out">
+                    <img src="/images/2d_rect_cam0_0_2773_0mmpose.jpg" alt="Image mmpose">
+                    <img src="/images/2d_rect_cam0_0_2773_0black.jpg" alt="Image blackened">
+                </div>
+                
+                <p>
+                    My bachelor thesis was centered around creating a customizable pipeline for annotating human skeletons in image datasets. 
+                    This tool is created for researchers and developers working in computer vision, particularly in pose estimation and person/object detection. 
+                    The estimation of keypoints on images could for instance be used to predict the direction and speed of walking or to predict if a person has 
+                    seen the vehicle. 
+                    Futhermore it could be used to create 3D meshes of the skeleton models for augmented and virtual reality.
+                    It integrates seamlessly with MMDetection, MMPose and LabelMe.
+                    The final pipeline includes the automated and adjustable process, anonymizing people in the dataset and different export options, 
+                    also for manual adjustments.
+                </p>
+            </div>
+
+
+            <!-- This website – single-page portfolio -->
+            <div id="this-website" class="project">
+                <h2>This Website </h2>
+                <p class="impact"><strong><em>A self-contained project showcasing a modern, responsive portfolio built only with HTML, JavaScript, and CSS.</em></strong></p>
+                <p>
+                    This website is developed exclusively with static web technologies. It combines HTML for the structure, CSS for styling, and JavaScript for interactive features.
+                    No external frameworks or back-end components are used, offering a lightweight and fast-loading experience.
+                    All personal projects are also made of only these three technologies.
+                </p>
+            </div>
+
         </section>
     </main>
 
@@ -148,6 +198,7 @@
         <div class="social-links">
             <a href="https://github.com/j-verhoog" target="_blank">GitHub</a>
             <a href="https://www.linkedin.com/in/jolle-verhoog-77b9b21b6/" target="_blank">LinkedIn</a>
+            <a href="mailto:permanent.beleefd6q@icloud.com">Contact</a>
         </div>
     </footer>
 
