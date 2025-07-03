@@ -12,6 +12,24 @@ const sndBad        = document.getElementById('sndBad');
 const sndWin        = document.getElementById('sndWin');
 const victoryScreen = document.getElementById('victoryScreen');
 
+// ---------------- ensure inline video on iOS ----------------
+video.setAttribute('playsinline', '');
+video.setAttribute('webkit-playsinline', '');
+
+// ---------------- getUserMedia fallback ----------------
+navigator.mediaDevices = navigator.mediaDevices || {};
+if (!navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia = function(constraints) {
+    const legacy = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    if (!legacy) {
+      return Promise.reject(new Error('getUserMedia is not supported in this browser'));
+    }
+    return new Promise((resolve, reject) => {
+      legacy.call(navigator, constraints, resolve, reject);
+    });
+  };
+}
+
 // ---------------- Speed settings ----------------
 const SPEED_MULTIPLIERS = {
   slow:      0.5,
@@ -72,7 +90,7 @@ class Dot {
 async function setupCamera() {
   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
   video.srcObject = stream;
-  await video.play();
+  await video.play();   // now unblocked by playsinline above
   return new Promise(res => {
     if (video.readyState >= 3) res();
     else video.addEventListener('loadeddata', () => res(), { once: true });
@@ -102,7 +120,7 @@ function triggerVictory() {
   if (speedSelect.value === 'superfast') {
     const p = document.createElement('p');
     p.id = 'secretMsg';
-    p.textContent = '🎉 Secret Facts Unlocked! 🎉';
+    p.textContent = '🎉 Secret Unlocked: Supersonic Victory Mode! 🎉';
     p.style.fontSize = '1.2rem';
     p.style.marginTop = '1rem';
     victoryScreen.querySelector('.victory-content').appendChild(p);
@@ -113,11 +131,6 @@ async function gameLoop() {
   if (!running) return;
 
   const preds = await model.estimateFaces(video, false);
-
-  // compute scale mapping
-  const scaleX = canvas.width  / video.videoWidth;
-  const scaleY = canvas.height / video.videoHeight;
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (preds.length > 0) {
@@ -130,19 +143,17 @@ async function gameLoop() {
       leftEar:  lm[5]
     };
 
-    Object.entries(parts).forEach(([part, [ix, iy]]) => {
-      const x = ix * scaleX, y = iy * scaleY;
+    Object.entries(parts).forEach(([part, [x,y]]) => {
       ctx.beginPath();
       ctx.arc(x, y, FACE_RADIUS, 0, 2 * Math.PI);
-      ctx.fillStyle = (part === 'nose' ? 'darkblue' : 'lightblue');
+      ctx.fillStyle = part === 'nose' ? 'darkblue' : 'lightblue';
       ctx.fill();
-      parts[part] = [x, y];
     });
 
     const [nx, ny] = parts.nose;
 
-    // update & draw tags
-    tags.forEach((t, i) => {
+    // tags chase nose
+    tags.forEach((t,i) => {
       t.update(nx, ny);
       t.draw();
       if (Math.hypot(t.x - nx, t.y - ny) < t.size + FACE_RADIUS) {
@@ -154,84 +165,79 @@ async function gameLoop() {
       }
     });
 
-    // tag-tag collisions
+    // merge overlapping tags
     for (let i = 0; i < tags.length; i++) {
       for (let j = i + 1; j < tags.length; j++) {
         const dx = tags[i].x - tags[j].x;
         const dy = tags[i].y - tags[j].y;
         if (Math.hypot(dx, dy) < tags[i].size + tags[j].size) {
-          tags.splice(j,1);
+          tags.splice(j, 1);
           tags.push(new Tag());
           j--;
         }
       }
     }
 
-    // collect green dots
-    dots.forEach((d, i) => {
+    // collect dots
+    dots.forEach((d,i) => {
       if (Math.hypot(d.x - nx, d.y - ny) < d.size + FACE_RADIUS) {
         sndGood.currentTime = 0;
         sndGood.play().catch(() => {});
         score++;
         scoreEl.textContent = `Score: ${score}`;
-        dots.splice(i,1);
+        dots.splice(i, 1);
         dots.push(new Dot());
         if (score >= 20) triggerVictory();
       }
     });
   }
 
-  // draw dots
+  // draw dots every frame
   dots.forEach(d => d.draw());
 
   if (running) requestAnimationFrame(gameLoop);
 }
 
-// ---------------- Audio unlock helpers ----------------
-function unlockAudio() {
-  [sndGood, sndBad, sndWin].forEach(snd => {
-    const wasMuted = snd.muted;
-    snd.muted = true;
-    snd.currentTime = 0;
-    snd.play()
-      .then(() => { snd.pause(); snd.muted = wasMuted; })
-      .catch(() => { snd.muted = wasMuted; });
-  });
-}
-
-// ---------------- Mobile scaling & Event wiring ----------------
+// ---------------- Event wiring ----------------
 startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
-  await setupCamera();
 
+  // ── Prime audio on user gesture so future .play() won't be blocked ──
+  [sndGood, sndBad, sndWin].forEach(a => {
+    a.preload = 'auto';
+    a.currentTime = 0;
+    a.play()
+      .then(() => a.pause())
+      .catch(() => {/* ignore if already unlocked */});
+  });
+
+  await setupCamera();
+  await loadModel();
+
+  // base sizing & mobile scaling
   canvas.width  = video.videoWidth;
   canvas.height = video.videoHeight;
-
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   if (isMobile) {
     const vw = window.innerWidth;
-    const vh = vw * (video.videoHeight / video.videoWidth);
-    canvas.style.width       = vw + 'px';
-    canvas.style.height      = vh + 'px';
-    video.style.width        = vw + 'px';
-    video.style.height       = vh + 'px';
-    document.getElementById('gameContainer').style.width  = vw + 'px';
-    document.getElementById('gameContainer').style.height = vh + 'px';
+    const ar = video.videoHeight / video.videoWidth;
+    const vh = vw * ar;
+    [video, canvas].forEach(el => {
+      el.style.width  = `${vw}px`;
+      el.style.height = `${vh}px`;
+    });
+    const gc = document.getElementById('gameContainer');
+    gc.style.width  = `${vw}px`;
+    gc.style.height = `${vh}px`;
     document.body.style.overflowY = 'auto';
+    canvas.width  = vw;
+    canvas.height = vh;
   }
 
-  await loadModel();
   resetGame();
-
-  // unlock audio on both desktop & mobile
-  unlockAudio();
-
   running = true;
   gameLoop();
 });
-
-// fallback unlock on first touch (iOS)
-document.addEventListener('touchstart', unlockAudio, { once: true });
 
 resetBtn.addEventListener('click', resetGame);
 playAgainBtn.addEventListener('click', () => {
