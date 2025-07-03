@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skeleton Tag</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="/images/favicon_robot.png" type="image/png">
+  <style>
+    /* Instructions styling */
+    #instructions {
+      color: #fff;
+      background: rgba(0,0,0,0.6);
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 640px;
+      margin: 1rem auto;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    #instructions h1 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+    #instructions ul {
+      padding-left: 1.2rem;
+    }
+    #instructions li {
+      margin-bottom: 0.5rem;
+    }
+    #instructions em {
+      font-style: normal;
+      font-weight: bold;
+    }
+
+    /* Controls */
+    #controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem auto;
+      max-width: 640px;
+      color: #fff;
+    }
+    #controls button,
+    #controls select {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    #score {
+      font-size: 1.2rem;
+    }
+
+    /* Game container */
+    #gameContainer {
+      position: relative;
+      width: 640px;
+      height: 480px;
+      margin: 0 auto 2rem;
+    }
+    video, canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+
+    /* Victory overlay */
+    #victoryScreen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .victory-content {
+      text-align: center;
+      color: #fff;
+    }
+    .victory-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .victory-content button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+  </style>
+
+  <!-- TFJS core and BlazeFace -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+</head>
+<body>
+
+  <!-- Instructions & Disclaimer -->
+  <section id="instructions">
+    <h1>Skeleton Tag</h1>
+    <p>Use your face to play this real-time tag game:</p>
+    <ul>
+      <li>Position yourself so your head and shoulders fill the frame.</li>
+      <li>Click <strong>Start Game</strong> to begin (turn on sound as well!).</li>
+      <li>Collect <span style="color:green;">green dots</span> with your <span style="color:darkblue;">nose</span>: <strong>+1</strong> point.</li>
+      <li>Avoid <span style="color:red;">red tags</span>: touching them costs <strong>1</strong> point.</li>
+      <li>Other face landmarks (eyes, ears) are in <span style="color:lightblue;">light blue</span>—they’re just for show.</li>
+      <li><em> Win at 20 points.</em></li>
+      <li><em>Note:</em> winning in superfast will unveil a secret</li>
+    </ul>
+    <p><em>Disclaimer:</em> Webcam access is required but <strong>no video or images are recorded, stored, or transmitted</strong>. Everything runs locally.</p>
+  </section>
+
+  <!-- Controls -->
+  <div id="controls">
+    <button id="startBtn">Start Game</button>
+    <button id="resetBtn">Reset</button>
+    <label for="speedSelect">Speed:</label>
+    <select id="speedSelect">
+      <option value="slow">Slow</option>
+      <option value="normal" selected>Normal</option>
+      <option value="fast">Fast</option>
+      <option value="superfast">Superfast</option>
+    </select>
+    <div id="score">Score: 0</div>
+  </div>
+
+  <!-- Game Container -->
+  <div id="gameContainer">
+    <video id="video" playsinline autoplay muted></video>
+    <canvas id="overlay"></canvas>
+
+    <!-- Victory Overlay -->
+    <div id="victoryScreen">
+      <div class="victory-content">
+        <h2>Congratulations!</h2>
+        <p>You reached 20 points!</p>
+        <button id="playAgainBtn">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sound effects -->
+  <audio id="sndGood" src="sounds/positive.mp3" preload="auto"></audio>
+  <audio id="sndBad"  src="sounds/negative.mp3" preload="auto"></audio>
+  <audio id="sndWin"  src="sounds/victory.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
