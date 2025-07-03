@@ -217,6 +217,14 @@ startBtn.addEventListener('click', async () => {
 
   await loadModel();
   resetGame();
+
+
+  // 🗝️ Unlock audio on mobile: play & pause each clip once
+  [sndGood, sndBad, sndWin].forEach(snd => {
+    snd.currentTime = 0;
+    snd.play().catch(() => {}).then(() => snd.pause());
+  });
+
   running = true;
   gameLoop();
 });
