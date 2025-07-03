@@ -57,6 +57,7 @@ class Tag {
 class Dot {
   constructor() {
     this.size = 12;
+    // always spawn fully within view
     this.x = this.size + Math.random() * (canvas.width  - 2*this.size);
     this.y = this.size + Math.random() * (canvas.height - 2*this.size);
   }
@@ -102,7 +103,7 @@ function triggerVictory() {
   if (speedSelect.value === 'superfast') {
     const p = document.createElement('p');
     p.id = 'secretMsg';
-    p.textContent = '🎉 Secret Facts Unlocked! 🎉';
+    p.textContent = '🎉 Secret Unlocked: Supersonic Victory Mode! 🎉';
     p.style.fontSize = '1.2rem';
     p.style.marginTop = '1rem';
     victoryScreen.querySelector('.victory-content').appendChild(p);
@@ -112,39 +113,29 @@ function triggerVictory() {
 async function gameLoop() {
   if (!running) return;
 
-  // detect face
   const preds = await model.estimateFaces(video, false);
-
-  // compute scale mapping from intrinsic video to canvas
-  const scaleX = canvas.width  / video.videoWidth;
-  const scaleY = canvas.height / video.videoHeight;
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (preds.length > 0) {
     const lm = preds[0].landmarks;
     const parts = {
-      rightEye: lm[0], 
+      rightEye: lm[0],
       leftEye:  lm[1],
       nose:     lm[2],
       rightEar: lm[4],
       leftEar:  lm[5]
     };
 
-    // draw landmarks at scaled positions
-    Object.entries(parts).forEach(([part, [ix,iy]]) => {
-      const x = ix * scaleX;
-      const y = iy * scaleY;
+    Object.entries(parts).forEach(([part, [x,y]]) => {
       ctx.beginPath();
       ctx.arc(x, y, FACE_RADIUS, 0, 2 * Math.PI);
       ctx.fillStyle = (part === 'nose' ? 'darkblue' : 'lightblue');
       ctx.fill();
-      parts[part] = [x, y];
     });
 
     const [nx, ny] = parts.nose;
 
-    // update & draw tags
+    // update & draw tags, nose collisions
     tags.forEach((t, i) => {
       t.update(nx, ny);
       t.draw();
@@ -157,13 +148,13 @@ async function gameLoop() {
       }
     });
 
-    // tag-tag collisions
+    // remove one of two tags when they overlap and spawn a new one
     for (let i = 0; i < tags.length; i++) {
       for (let j = i + 1; j < tags.length; j++) {
         const dx = tags[i].x - tags[j].x;
         const dy = tags[i].y - tags[j].y;
         if (Math.hypot(dx, dy) < tags[i].size + tags[j].size) {
-          tags.splice(j,1);
+          tags.splice(j, 1);
           tags.push(new Tag());
           j--;
         }
@@ -177,14 +168,13 @@ async function gameLoop() {
         sndGood.play().catch(() => {});
         score++;
         scoreEl.textContent = `Score: ${score}`;
-        dots.splice(i,1);
+        dots.splice(i, 1);
         dots.push(new Dot());
         if (score >= 20) triggerVictory();
       }
     });
   }
 
-  // draw dots
   dots.forEach(d => d.draw());
 
   if (running) requestAnimationFrame(gameLoop);
@@ -195,23 +185,26 @@ startBtn.addEventListener('click', async () => {
   startBtn.disabled = true;
   await setupCamera();
 
-  // base internal canvas size
+  // base sizing
   canvas.width  = video.videoWidth;
   canvas.height = video.videoHeight;
 
+  // detect mobile and scale to screen width
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
   if (isMobile) {
     const vw = window.innerWidth;
-    const vh = vw * (video.videoHeight / video.videoWidth);
-    // set canvas internal resolution and CSS size to screen width
-    canvas.width  = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.style.width  = vw + 'px';
-    canvas.style.height = vh + 'px';
-    video.style.width   = vw + 'px';
-    video.style.height  = vh + 'px';
+    const ar = video.videoHeight / video.videoWidth;
+    const vh = vw * ar;
+    // resize elements
+    canvas.width  = vw;
+    canvas.height = vh;
+    video.style.width        = vw + 'px';
+    video.style.height       = vh + 'px';
+    canvas.style.width       = vw + 'px';
+    canvas.style.height      = vh + 'px';
     document.getElementById('gameContainer').style.width  = vw + 'px';
     document.getElementById('gameContainer').style.height = vh + 'px';
+    // ensure page scroll
     document.body.style.overflowY = 'auto';
   }
 
