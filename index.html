@@ -70,9 +70,27 @@
 
             <!-- Master Thesis -->
             <div id="master-thesis" class="project">
-                <h2>MSc Thesis – Federated Learning for Perception in Autonomous Driving</h2>
-                <p><em>More details coming soon...</em></p>
+                <h2>MSc Thesis – Federated Learning for 3D Object Detection</h2>
+                <p class="impact"><strong><em>Making autonomous vehicles robust to day–night and weather changes without sharing raw data.</em></strong></p>
+                
+                <div class="project-media">
+                    <img src="/images/fl_simple.png" alt="Federated 3D object detection setup">
+                    <img src="/images/nuscenes_driving.png" alt="Day, night and weather domains">
+                </div>
+
+                <p>
+                    In my MSc thesis at TU Delft’s Intelligent Vehicles group, I study how federated learning (shown on the left) can improve the robustness of 3D object detectors for autonomous driving under temporal domain shifts such as day–night and adverse weather (shown on the right). 
+                    Instead of collecting all data in one place, vehicles (clients) collaboratively train a shared LiDAR–camera model while keeping raw sensor data on-device. 
+                    The focus is on cross-domain perception: ensuring that cars trained in clear daylight still detect traffic participants reliably at night, in rain, fog, or snow.
+                </p>
+
+                <p>
+                    Concretely, I build a federated training pipeline for a multi-modal 3D object detector and compare centralized, standard FedAvg, and normalization-based personalization strategies on corrupted versions of nuScenes. 
+                    By treating normalization layers as domain adapters, I investigate how far we can push robustness to unseen conditions while keeping the backbone shared across clients. 
+                    The project combines large-scale dataset preparation (synthetic weather corruptions and day–night splits), federated optimization, and detailed analysis of how normalization statistics capture domain shifts in autonomous-vehicle perception.
+                </p>
             </div>
+
 
 
 
@@ -84,7 +102,7 @@
                 <div class="project-media">
                     <img src="/images/JTW07211.JPG" alt="Robot in Orchard View 1">
                     <img src="/images/PhysicalTestArena.png" alt="Test Arena View 2">
-                    <img src="/images/apple-detect-base.jpg" alt="Base Camera Apple Detection View 3">
+
                     <img src="/images/arm-drop-basket.jpg" alt="Gripper Placing Apple in Basket View 4">
                 </div>
                
@@ -148,11 +166,10 @@
 
             <!-- Deep Learning Projects -->
             <div id="deep-learning" class="project">
-                <h2>MSc Electives - (Computer Vision through) Deep Learning</h2>
+                <h2>MSc Elective - (Computer Vision through) Deep Learning</h2>
                 <p class="impact"><strong><em> Underwater image enhancement and tomoto leaf disease detection with various models.</em></strong></p>
                 <div class="project-media">
                     <img src="/images/MFEF.png" alt="MFEF module" />
-                    <img src="/images/transformer.png" alt="Basic transformer structure" />
                 </div>
                 
                 <p>In the first project, I reproduced and extended a multi‐view underwater image enhancement pipeline in PyTorch, 
@@ -160,7 +177,7 @@
                     I experimented with preprocessing and normalization strategies to mitigate color cast and channel imbalance, 
                     and performed extensive hyperparameter tuning to optimize fusion weights; full code and report are available at 
                     <a href="https://github.com/j-verhoog/Deep_Learning/tree/main">github.com/j-verhoog/Deep_Learning</a>.</p>
-                <p>The second project benchmarks a Vision Transformer (see right image) vs. a convolutional network (ResNet-50) on a 10-class tomato leaf disease dataset. 
+                <p>The second project benchmarks a Vision Transformer vs. a convolutional network (ResNet-50) on a 10-class tomato leaf disease dataset. 
                     I compared pretrained and from-scratch models using cross-entropy loss, tracked training/inference speed and memory footprint, 
                     and demonstrated that ViT reached 99.83% accuracy while ResNet-50 offered faster inference; see detailed results at 
                     <a href="https://github.com/j-verhoog/Computer_Vision_by_DeepLearning">github.com/j-verhoog/Computer_Vision_by_DeepLearning</a>.</p>
@@ -187,6 +204,31 @@
                     It integrates seamlessly with MMDetection, MMPose and LabelMe.
                     The final pipeline includes the automated and adjustable process, anonymizing people in the dataset and different export options, 
                     also for manual adjustments.
+                </p>
+            </div>
+
+            <!-- BSc Minor - Crack Localization -->
+            <div class="project">
+                <h2>BSc Minor - Airplane Crack Localization</h2>
+                <p class="impact"><strong><em>Improving airplane safety by detecting and localizating sub-surface micro-cracks .</em></strong></p>
+
+                <div class="project-media">
+                    <img src="/images/mesh_cracked.png" alt="FEM mesh with crack">
+                </div>
+
+                <p>
+                    As part of the Applied AI minor, I worked in a team for three months to develop a complete machine-learning pipeline for 
+                    detecting and localizing sub-surface cracks in brittle aerospace materials. Over 25,000 synthetic samples with varied crack angles, positions, and load 
+                    deformations were preprocessed into uniform deformation-gradient grids for downstream AI models. 
+                    A sample mesh slice with a crack in it is visualized, the background color indicates the deformation gradient.
+                </p>
+
+                <p>
+                    We benchmarked classical machine-learning models (KNN, SVM, Decision Trees) and built convolutional neural 
+                    networks for crack classification, reaching F1-scores above 0.99. Building on this, we created 
+                    regression models to estimate crack location and orientation, achieving mean absolute errors of 
+                    1.27% and 1.33° respectively. The final deliverable included a modular prediction pipeline that 
+                    classifies a specimen and, when a crack is present, predicts its center and angle.
                 </p>
             </div>
 

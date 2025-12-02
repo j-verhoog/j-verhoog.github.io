@@ -51,20 +51,25 @@ main {
 .project h2 {
     margin-bottom: 15px;
 }
-
 .project-media {
     display: flex;
-    margin-bottom: 15px;
     justify-content: space-between;
+    flex-wrap: nowrap;       /* keep all images on one row */
+    margin-bottom: 15px;
     background-color: #f5f5f5;
 }
 
 .project-media img {
-    height: 200px;
+    max-height: 300px;       /* target height, but only as long as it fits */
+    width: auto;             /* infer width from height and aspect ratio */
+    max-width: 100%;         /* a single image never exceeds container width */
     object-fit: contain;
-    flex: 1;
+
+    flex: 1 1 auto;          /* allow shrinking and growing */
+    min-width: 0;            /* <<< CRUCIAL: allow shrinking below intrinsic width */
     margin: 0 5px;
 }
+
 
 .project-media video {
     max-width: 100%;
