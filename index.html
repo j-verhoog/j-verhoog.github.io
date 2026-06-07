@@ -55,13 +55,14 @@
         <section class="profile">
             <img src="/images/profile_pic.jpg" alt="Your Photo" class="profile-photo">
             <div class="profile-description">
-                <h1>Jolle Verhoog</h1>
+            <h1>Jolle Verhoog</h1>
+            <h2>Robotics & Computer Vision Engineer</h2>
                 <p>
-                    Hi, I am Jolle Verhoog and welcome to my portfolio! 
-                    I am a Robotics Engineer with a deep interest in automation, intelligent systems and computer vision.
-                    This portfolio highlights my journey through innovative projects, demonstrating how I apply cutting-edge technologies to solve real-world challenges. 
-                    <br>
-                    Feel free to explore and to reach out!
+                    Hi, I'm Jolle. I am a Robotics Engineer (MSc, TU Delft, graduating June 2026) specializing in 3D object detection, federated learning, and intelligent vehicles. 
+                    <br><br>
+                    I combine deep theoretical knowledge of machine learning with a pragmatic, hands-on approach to problem-solving. Whether I am deploying ROS 2 on autonomous agricultural robots or scaling multi-GPU deep learning pipelines on high-performance compute clusters, I focus on building robust systems that work in the real world.
+                    <br><br>
+                    I am currently seeking full-time opportunities starting this summer. Feel free to explore my projects or reach out!
                 </p>
             </div>
         </section>
@@ -79,15 +80,15 @@
                 </div>
 
                 <p>
-                    In my MSc thesis at TU Delft’s Intelligent Vehicles group, I study how federated learning (shown on the left) can improve the robustness of 3D object detectors for autonomous driving under temporal domain shifts such as day–night and adverse weather (shown on the right). 
-                    Instead of collecting all data in one place, vehicles (clients) collaboratively train a shared LiDAR–camera model while keeping raw sensor data on-device. 
-                    The focus is on cross-domain perception: ensuring that cars trained in clear daylight still detect traffic participants reliably at night, in rain, fog, or snow.
+                    In my MSc thesis at TU Delft’s Intelligent Vehicles group, I researched how federated learning can improve the robustness of 3D object detectors for autonomous driving under severe domain shifts, such as transitioning from a clear day in Boston to a rainy night in Singapore[cite: 1]. Because sharing raw multi-modal sensor data to train a central model is often constrained by bandwidth and privacy concerns, federated learning allows vehicles to collaboratively train a model while keeping their data on-device[cite: 1]. However, standard federated methods struggle to reach consensus when client vehicles face highly heterogeneous, domain-specific conditions[cite: 1].
                 </p>
 
                 <p>
-                    Concretely, I build a federated training pipeline for a multi-modal 3D object detector and compare centralized, standard FedAvg, and normalization-based personalization strategies on corrupted versions of nuScenes. 
-                    By treating normalization layers as domain adapters, I investigate how far we can push robustness to unseen conditions while keeping the backbone shared across clients. 
-                    The project combines large-scale dataset preparation (synthetic weather corruptions and day–night splits), federated optimization, and detailed analysis of how normalization statistics capture domain shifts in autonomous-vehicle perception.
+                    To address this, I developed FedCKA, a dynamic layer-masking strategy designed to balance global generalization with local adaptation[cite: 1]. Instead of relying on static, manually predefined layer splits, this method uses Centered Kernel Alignment to measure the representational similarity of neural network layers across different clients during training[cite: 1]. Layers that remain consistent are shared globally to transfer knowledge, while highly divergent, domain-sensitive layers—often within the multi-modal fusion blocks—are masked and kept personalized for each specific vehicle[cite: 1].
+                </p>
+
+                <p>
+                    I orchestrated large-scale, multi-GPU federated training simulations on the Delft AI Cluster to evaluate this approach using the Cross-Modal Transformer detection model on a partitioned nuScenes benchmark[cite: 1]. The results demonstrated that FedCKA successfully preserved local domain specialization while outperforming established federated baselines like FedAvg, FedBN, FedRep, and FedSelect[cite: 1]. By dynamically routing and masking parameters based on activation similarities, the system significantly improved 3D object detection recovery and cross-domain robustness in adverse conditions without requiring a centralized raw dataset[cite: 1].
                 </p>
             </div>
 
